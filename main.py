@@ -12,6 +12,7 @@ estructura_html = """
     <meta charset="UTF-8">
     <title>MarkZero</title>
     <link rel="stylesheet" href="style.css"> 
+    <link rel="icon" type="image/png" href="public/icon.png">
 </head>
 <body>
     <div class="contenedor">

@@ -5,14 +5,59 @@
     <meta charset="UTF-8">
     <title>MarkZero</title>
     <link rel="stylesheet" href="style.css"> 
+    <link rel="icon" type="image/png" href="public/icon.png">
 </head>
 <body>
     <div class="contenedor">
-<h1>MarkZero</h1>
-<blockquote>Creador de paginas web con MarkDown
-</blockquote><h4>MarkZero esta en desarrollo, y todavia este muy lejos que se convierta en el MarkZero que me imagino, asi que por el momento, si lees esto, sientete libre de clonar mi repositorio y seguir por tu cuenta, agregando cosas, mejorando otras, aplicando buenas practicas blahblahblah, este proyecto es personal y <strong>No se recibiran pull request</strong></h4>
-<blockquote>Dicho eso, que tengas buen dia!!
+<img src="public/logo2.png" alt="Logotipo MarkZero">
+<blockquote><strong>"Markdown to Web, from zero to hero."</strong>
 </blockquote>
+MarkZero es un motor de traducción de <strong>Markdown a HTML</strong> hecho 100% en Python puro, sin librerías externas de terceros. Fue creado como un reto personal para dominar la lógica de autómatas, expresiones regulares (Regex) y manejo de estados en el procesamiento de texto.
+<ul><li></li>
+</ul>
+<h2>¿Qué hace especial a MarkZero?</h2>
+<ul><li><strong>Zero Dependencies:</strong> Lógica pura, sin <code>markdown</code>, <code>beautifulsoup</code> ni nada extra. Solo Python y mucha logica.</li>
+<li><strong>State Engine:</strong> Capaz de entender bloques complejos como listas, citas y bloques de código.</li>
+<li><strong>Dark Mode Native:</strong> Genera sitios con un diseño oscuro integrado.</li>
+<li><strong>SEO Ready:</strong> Estructura semántica correcta (H1-H6).</li>
+</ul>
+<ul><li></li>
+</ul>
+<h2>Características implementadas (Día 1)</h2>
+<ul><li>[x] <strong>Encabezados:</strong> Niveles del 1 al 6.</li>
+<li>[x] <strong>Estilo de Texto:</strong> Negritas (<code><i></i></code>), Cursivas (<code>*</code>), Resaltado (<code>==</code>) y Código en línea (<code></code> <code> </code>`).</li>
+<li>[x] <strong>Listas:</strong> Soporte para listas sin ordenar (<code>-</code>).</li>
+<li>[x] <strong>Citas:</strong> Bloques de cita (<code>></code>) con soporte para líneas múltiples.</li>
+<li>[x] <strong>Multimedia:</strong> Enlaces e Imágenes con sintaxis estándar.</li>
+<li>[x] <strong>Código:</strong> Bloques de código con triple backtick (<code></code> <code></code><code> </code>`).</li>
+</ul>
+<ul><li></li>
+</ul>
+<h2>Instalación y Uso</h2>
+1. Clona este repositorio:
+<pre><code>
+git clone https://github.com/cerrtrash/MarkZero.git<br>
+</code></pre>
+2. Pon tus notas en un en la carpeta files, se veria asi:  <code>files/nombre_generico.md</code> (o cambia el nombre en el script).
+3. Ejecuta el motor:
+<pre><code>
+python main.py<br>
+</code></pre>
+4. ¡Listo! Abre tu <code>index.html</code> y disfruta de la magia.
+<ul><li></li>
+</ul>
+<h2>Estado del Proyecto</h2>
+<h4><strong>MarkZero está en desarrollo.</strong></h4>
+Todavía está muy lejos de ser la herramienta final que imagino. Siente libre de clonar mi repositorio y seguir por tu cuenta, agregando cosas, mejorando otras o aplicando buenas prácticas.
+<blockquote><strong>Nota:</strong> Este es un proyecto personal de aprendizaje. <strong>No se aceptarán Pull Requests</strong> por el momentO.
+</blockquote>
+<ul><li></li>
+</ul>
+<h2>Autor</h2>
+Desarrollado con <3 y mucha paciencia por <strong><a href="https://link.bydaniel.site">cerrtrash(pagina en desarrollo)</a></strong>.
+<ul><li></li>
+<i>Dicho eso, ¡que tengas un excelente día de código!</i><br>
+</ul>
         </div>
     </body>
 </html>
