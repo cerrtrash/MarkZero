@@ -22,14 +22,14 @@ class MarkDownParser:
                 temp = ESTRUCTURA_CODE_OPEN
                 self.on_code = True
             else:
-                if self.on_lista and (not temp or temp.startswith('#') or temp.startswith('>')):
+                if self.on_lista and (not temp or temp.startswith('#') or temp.startswith('>') or temp.startswith('---')):
                     cierre += "</ul>"
                     self.on_lista = False
                     
                 if temp.startswith('---'):
                     temp = '<hr>'
                     
-                if self.on_cita and (not temp or temp.startswith('#') or temp.startswith('- ')):
+                if self.on_cita and (not temp or temp.startswith('#') or temp.startswith('- ') or temp.startswith('---')):
                     cierre += "</blockquote>"
                     self.on_cita = False
 
@@ -63,6 +63,7 @@ class MarkDownParser:
                     temp = temp + "<br>"
                 
                 temp = cierre + temp
+                temp = re.sub(r'~~(.*?)~~', r'<s>\1</s>', temp)
                 temp = re.sub(r'`(.*?)`', r'<code>\1</code>', temp)
                 temp = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', temp)
                 temp = re.sub(r'\*(.*?)\*', r'<i>\1</i>', temp)

@@ -1,9 +1,20 @@
 import os
 import shutil
+import time
+import argparse
+from threading import Thread
+from http.server import SimpleHTTPRequestHandler, HTTPServer
+from functools import partial
 from core.parser import MarkDownParser
 from core.templates import ESTRUCTURA_HEAD, ESTRUCTURA_FOOT
 
-def main():
+LAST_BUILD_TIME = time.time()
+DEV_MODE = False
+
+def build():
+    global LAST_BUILD_TIME
+    LAST_BUILD_TIME = time.time()
+    print("Generando las paginas....")
     menu_html = '<nav class="menu">'
     folder_input = 'content'
     folder_output = 'dist'
@@ -50,10 +61,85 @@ def main():
             
             contenido_final = content_menu + "\n".join(lineas_resultantes) + ESTRUCTURA_FOOT
             
+            if DEV_MODE:
+                reload_script = """
+                <script>
+                    let lastBuild = null;
+                    async function check() {
+                        try {
+                            const res = await fetch('/live-reload-check');
+                            const time = await res.text();
+                            if (lastBuild && lastBuild !== time) location.reload();
+                            lastBuild = time;
+                        } catch(e) {}
+                    }
+                    setInterval(check, 1000);
+                </script>
+                """
+                contenido_final = contenido_final.replace('</html>', f'{reload_script}</html>')
+
             with open(path_output, 'w', encoding='utf-8') as f:
                 f.write(contenido_final)
                 
             print(f"Generado: {path_output}")
 
+
+class LiveReloadHandler(SimpleHTTPRequestHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, directory='dist', **kwargs)
+
+    def do_GET(self):
+        if self.path == '/live-reload-check':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(str(LAST_BUILD_TIME).encode())
+        else:
+            super().do_GET()
+
+def serve(port=8000):
+    server_address = ('', port)
+    httpd = HTTPServer(server_address, LiveReloadHandler)
+    print(f"Servidor corriendo en http://localhost:{port}")
+    httpd.serve_forever()
+
+def watch():
+    last_mtimes = {}
+    print("Vigilando cambios en 'content/' y 'public/'...")
+    while True:
+        changed = False
+        # Revisar carpetas críticas
+        for folder in ['content', 'public']:
+            if not os.path.exists(folder): continue
+            for root, dirs, files in os.walk(folder):
+                for f in files:
+                    path = os.path.join(root, f)
+                    try:
+                        mtime = os.path.getmtime(path)
+                        if path not in last_mtimes or last_mtimes[path] < mtime:
+                            last_mtimes[path] = mtime
+                            changed = True
+                    except FileNotFoundError:
+                        continue
+        
+        if changed:
+            print(' Cambio detectado. Actualizando...')
+            build()
+        time.sleep(1)
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="MarkZero Engine")
+    parser.add_argument('--build', action = 'store_true', help="Genera el sitio una sola vez")
+    parser.add_argument('--dev', action='store_true', help="Modo desarrollo: Auto build y servidor local")
+
+    args = parser.parse_args()
+
+    if args.dev:
+        DEV_MODE = True
+        build()
+        server_thread = Thread(target=serve, daemon=True)
+        server_thread.start()
+        watch()
+    elif args.build:
+        build()
+    else:
+        print("\n Tip: Usa 'python main.py --dev' para el modo live")

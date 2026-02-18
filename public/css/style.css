@@ -194,7 +194,7 @@ pre::-webkit-scrollbar-thumb:hover {
 code {
     padding: 0.2em 0.4em;
     margin: 0;
-    font-size: 13px;
+    font-size: 20px;
     background-color: rgba(110, 118, 129, 0.4);
     border-radius: 6px;
     font-family: inherit;
