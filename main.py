@@ -1,106 +1,59 @@
-import re 
+import os
+import shutil
+from core.parser import MarkDownParser
+from core.templates import ESTRUCTURA_HEAD, ESTRUCTURA_FOOT
 
-lineasConvertidas = []
-on_lista = False
-on_cita = False
-on_code = False
+def main():
+    menu_html = '<nav class="menu">'
+    folder_input = 'content'
+    folder_output = 'dist'
+    public_dir = 'public'
+    paginas = [f for f in os.listdir(folder_input) if f.endswith('.md')]
 
-estructura_html = """
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>MarkZero</title>
-    <link rel="stylesheet" href="style.css"> 
-    <link rel="icon" type="image/png" href="public/icon.png">
-</head>
-<body>
-    <div class="contenedor">
-"""
+    os.makedirs(folder_output, exist_ok=True)
 
-estructura_html_final = """
-        </div>
-    </body>
-</html>
-"""
+    for p in paginas:
+        nombre = p.replace('.md', '')
+        enlace = p.replace('.md', '.html')
+        menu_html += f'<a href="{enlace}">{nombre}</a>'
+    menu_html += '</nav>'
 
-with open('Readme.md', 'r') as archivo:
-    contenido = archivo.readlines()
+    content_menu = ESTRUCTURA_HEAD.replace('{{MENU}}', menu_html)
 
-for linea in contenido:
-    temp = linea.strip()
-    cierre = ""
+    if os.path.exists(public_dir):
+        for item in os.listdir(public_dir):
+            s = os.path.join(public_dir, item)
+            d = os.path.join(folder_output, item)
+            if os.path.isdir(s):
+                if os.path.exists(d): shutil.rmtree(d)
+                shutil.copytree(s, d)
+            else:
+                shutil.copy2(s, d)
+        
+        css_file = os.path.join(folder_output, 'css', 'style.css')
+        if os.path.exists(css_file):
+            shutil.copy2(css_file, os.path.join(folder_output, 'style.css'))
 
-    if on_code:
-        if temp.startswith('```'):
-            temp = "</code></pre>"
-            on_code = False
-        else:
-            temp = temp.replace('<', '&lt;').replace('>', '&gt;') + "<br>"
-    else:
-        if temp.startswith('```'):
-            temp = "<pre><code>"
-            on_code = True
-        else:
-            if on_lista and (not temp or temp.startswith('#') or temp.startswith('>')):
-                cierre += "</ul>"
-                on_lista = False
-            if on_cita and (not temp or temp.startswith('#') or temp.startswith('-')):
-                cierre += "</blockquote>"
-                on_cita = False
-
-            if temp.startswith('######'):
-                temp = '<h6>' + temp.lstrip('#').strip() + '</h6>'
-            elif temp.startswith('#####'):
-                temp = '<h5>' + temp.lstrip('#').strip() + '</h5>'
-            elif temp.startswith('####'):
-                temp = '<h4>' + temp.lstrip('#').strip() + '</h4>'    
-            elif temp.startswith('###'):
-                temp = "<h3>" + temp.lstrip('#').strip() + '</h3>'
-            elif temp.startswith('##'):
-                temp = "<h2>" + temp.lstrip('#').strip() + '</h2>'
-            elif temp.startswith('#'):
-                temp = "<h1>" + temp.lstrip('#').strip() + '</h1>'   
-            elif temp.startswith('-'):
-                if not on_lista:
-                    temp = '<ul><li>' + temp.lstrip('-').strip() + '</li>'
-                    on_lista = True
-                else:
-                    temp = '<li>' + temp.lstrip('-').strip() + '</li>'
-            elif temp.startswith('>'):
-                if not on_cita:
-                    temp = '<blockquote>' + temp.lstrip('>').strip()
-                    on_cita = True
-                else:
-                    temp = temp.lstrip('>').strip() + "<br>"
-            elif not temp:
-                temp = ""
-            elif on_lista or on_cita:
-                temp = temp + "<br>"
+    for filename in os.listdir(folder_input):
+        if filename.endswith('.md'):
+            path_input = os.path.join(folder_input, filename)
+            path_output = os.path.join(folder_output, filename.replace('.md', '.html'))
             
-            temp = cierre + temp
-            temp = re.sub(r'`(.*?)`', r'<code>\1</code>', temp)
-            temp = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', temp)
-            temp = re.sub(r'\*(.*?)\*', r'<i>\1</i>', temp)
-            temp = re.sub(r'__(.*?)__', r'<strong>\1</strong>', temp)
-            temp = re.sub(r'_(.*?)_', r'<i>\1</i>', temp)
-            temp = re.sub(r'\==(.*?)==', r'<mark>\1</mark>', temp)
-            temp = re.sub(r'\!\[(.*?)\]\((.*?)\)', r'<img src="\2" alt="\1">', temp)
-            temp = re.sub(r'\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', temp)
+            parser = MarkDownParser()
+            lineas_resultantes = []
 
-    if temp:
-        lineasConvertidas.append(temp)
+            with open(path_input, 'r', encoding='utf-8') as f:
+                for linea in f:
+                    resultado = parser.parse_line(linea)
+                    if resultado:
+                        lineas_resultantes.append(resultado)
+            
+            contenido_final = content_menu + "\n".join(lineas_resultantes) + ESTRUCTURA_FOOT
+            
+            with open(path_output, 'w', encoding='utf-8') as f:
+                f.write(contenido_final)
+                
+            print(f"Generado: {path_output}")
 
-if on_lista: lineasConvertidas.append("</ul>")
-if on_cita: lineasConvertidas.append("</blockquote>")
-if on_code: lineasConvertidas.append("</code></pre>")
-
-documento = "\n".join(lineasConvertidas)
-html_archivo = estructura_html + documento + estructura_html_final
-
-try:
-    with open('index.html', 'w') as html:
-        html.write(html_archivo)
-    print("Archivo actualizado")
-except Exception as e:
-    print(f"Error: {e}")
+if __name__ == "__main__":
+    main()

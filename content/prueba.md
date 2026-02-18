@@ -70,8 +70,9 @@ el administrador de esa red pierde todo control sobre él
     - El administrador de la red local puede solucionar este
     problema prohibiendo todo tráfico cifrado, y con ello los túneles 
 
+---
 
-![Túnel local](public/photo.jpg)
+![Túnel local](photo.jpg)
 
 ### Túnel remoto
 

@@ -1,4 +1,4 @@
-![Logotipo MarkZero](public/logo2.png)
+![Logotipo MarkZero](logo2.png)
 > **"Markdown to Web, from zero to hero."**
 
 MarkZero es un motor de traducción de **Markdown a HTML** hecho 100% en Python puro, sin librerías externas de terceros. Fue creado como un reto personal para dominar la lógica de autómatas, expresiones regulares (Regex) y manejo de estados en el procesamiento de texto.
@@ -22,6 +22,9 @@ MarkZero es un motor de traducción de **Markdown a HTML** hecho 100% en Python 
 - [x] **Código:** Bloques de código con triple backtick (`` ``` ``).
 
 ---
+- hola
+
+-hola
 
 ##  Instalación y Uso
 1. Clona este repositorio:
