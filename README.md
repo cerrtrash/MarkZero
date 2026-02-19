@@ -31,7 +31,7 @@ MarkZero es un motor de traducción de **Markdown a HTML** hecho 100% en Python 
 2. Pon tus notas en la carpeta `content/`.
 3. Ejecuta el motor:
    ```bash
-   python main.py
+   python main.py --dev
    ```
 4. ¡Listo! Los archivos generados estarán en la carpeta `dist/`.
 
