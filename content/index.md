@@ -1,55 +1,153 @@
-![Logotipo MarkZero](logo2.png)
-> **"Markdown to Web, from zero to hero."**
+![logo de markzero](public/logo2.png)
 
-MarkZero es un motor de traducción de **Markdown a HTML** hecho 100% en Python puro, sin librerías externas de terceros. Fue creado como un reto personal para dominar la lógica de autómatas, expresiones regulares (Regex) y manejo de estados en el procesamiento de texto.
 
----
+## Genera sitios web estáticos usando solo Markdown
 
-## ¿Qué hace especial a MarkZero?
-- **Zero Dependencies:** Lógica pura, sin `markdown`, `beautifulsoup` ni nada extra. Solo Python y mucha logica.
-- **State Engine:** Capaz de entender bloques complejos como listas, citas y bloques de código.
-- **Dark Mode Native:** Genera sitios con un diseño oscuro integrado.
-- **SEO Ready:** Estructura semántica correcta (H1-H6).
+MarkZero es un entorno minimalista que convierte archivos `.md` en páginas HTML listas para producción.
+
+Escribe en Markdown.  
+Compila a HTML.  
+Publica en cualquier hosting.
 
 ---
 
-## Características implementadas (Día 1)
-- [x] **Encabezados:** Niveles del 1 al 6.
-- [x] **Estilo de Texto:** Negritas (`**`), Cursivas (`*`), Resaltado (`==`) y Código en línea (`` ` ``).
-- [x] **Listas:** Soporte para listas sin ordenar (`-`).
-- [x] **Citas:** Bloques de cita (`>`) con soporte para líneas múltiples.
-- [x] **Multimedia:** Enlaces e Imágenes con sintaxis estándar.
-- [x] **Código:** Bloques de código con triple backtick (`` ``` ``).
+## ¿Qué es MarkZero?
 
----
-- hola
+MarkZero no es solo un conversor.
 
--hola
+Es un pequeño ecosistema diseñado para:
 
-##  Instalación y Uso
-1. Clona este repositorio:
-   ```bash
-   git clone https://github.com/cerrtrash/MarkZero.git
-   ```
-2. Pon tus notas en un en la carpeta files, se veria asi:  `files/nombre_generico.md` (o cambia el nombre en el script).
-3. Ejecuta el motor:
-   ```bash
-   python main.py
-   ```
-4. ¡Listo! Abre tu `index.html` y disfruta de la magia.
+- Escribir contenido rápidamente
+- Generar sitios estáticos organizados
+- Mantener una estructura limpia
+- Visualizar cambios en tiempo real
+
+Ideal para documentación técnica, blogs personales o proyectos simples.
 
 ---
 
-## Estado del Proyecto
-#### **MarkZero está en desarrollo.**
-Todavía está muy lejos de ser la herramienta final que imagino. Siente libre de clonar mi repositorio y seguir por tu cuenta, agregando cosas, mejorando otras o aplicando buenas prácticas. 
+## Características Principales
 
-> **Nota:** Este es un proyecto personal de aprendizaje. **No se aceptarán Pull Requests** por el momentO.
+### Motor de Parseo Propio
+
+Incluye un motor desarrollado desde cero que interpreta:
+
+- Encabezados
+- Listas anidadas
+- Tablas
+- Citas
+- Bloques de código
+- Separadores
+
+No depende de frameworks pesados.
 
 ---
 
-## Autor
-Desarrollado con <3 y mucha paciencia por **[cerrtrash(pagina en desarrollo)](https://link.bydaniel.site)**.
+### Botón de Copiado en Bloques de Código
+
+Todos los bloques de código incluyen un botón funcional que permite copiar el contenido directamente al portapapeles.
+
+Especialmente útil para documentación técnica.
 
 ---
-*Dicho eso, ¡que tengas un excelente día de código!*
+
+### Live Reload
+
+Modo desarrollo con recarga automática.
+
+Cada vez que guardas un archivo `.md`, el navegador se actualiza automáticamente sin necesidad de refrescar manualmente.
+
+---
+
+## Estructura del Proyecto
+
+# Estructura del proyecto
+```
+  MarkZero/
+├── main.py --> El archivo principal
+├── content/ ---> Carpeta donde deben ir tus archivos .md
+│   ├── index.md
+│   └── prueba.md
+├── core/
+│   ├── parser.py --> Aqui se encuentran el motor para traducir a html
+│   └── templates.py --> Aqui se define la estructura del sitio (cabeceras, pie de pagina, etc)
+├── public/
+│   ├── css/
+│   │   └── style.css --> Puedes modificar el estilo de las paginas a tu gusto
+│   └── icon.png 
+└── dist/ ---> Esta carpeta es tu build con los .md traducidos a html
+    ├── index.html 
+    ├── prueba.html
+    └── style.css
+
+```
+
+## Modo Desarrollo
+
+```bash
+python main.py --dev
+```
+
+Si usas una versión específica:
+
+```bash
+python3.11 main.py --dev
+```
+
+Luego abre:
+
+```
+http://localhost:8000
+```
+
+---
+
+## Sistema de Navegación Automático
+
+MarkZero detecta automáticamente los archivos dentro de `content/` y:
+
+1. Genera una página HTML por cada archivo `.md`.
+2. Construye el menú de navegación superior automáticamente.
+3. Trata `index.md` como la página principal.
+4. Actualiza el menú al agregar o renombrar archivos.
+
+---
+
+## Personalización Visual
+
+Edita:
+
+```bash
+public/css/style.css
+```
+
+Puedes modificar:
+
+- Colores
+- Tipografía
+- Layout
+- Espaciado
+- Estilos de código
+
+---
+
+## Flujo de Trabajo
+
+1. Crea o edita un archivo `.md` dentro de `content/`.
+2. Ejecuta el servidor en modo desarrollo.
+3. Guarda el archivo.
+4. Visualiza los cambios automáticamente.
+5. Sube la carpeta `dist/` a cualquier hosting estático.
+
+---
+
+## Filosofía
+
+- Simplicidad
+- Control
+- Rendimiento
+- Markdown como fuente única de verdad
+
+---
+
+###### Proyectado y construido por [cerrtrash](https://bydaniel.site). MarkZero es una herramienta ligera para desarrolladores que aman markdown. Regalame una estrellita en github -> [MarkZero](https://github.com/cerrtrash/MarkZero) 
