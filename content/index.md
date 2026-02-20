@@ -1,4 +1,4 @@
-![logo de markzero](public/logo2.png)
+![logo de markzero](logo2.png)
 
 
 ## Genera sitios web estáticos usando solo Markdown
