@@ -150,4 +150,4 @@ Puedes modificar:
 
 ---
 
-###### Proyectado y construido por [cerrtrash](https://bydaniel.site). MarkZero es una herramienta ligera para desarrolladores que aman markdown. Regalame una estrellita en github -> [MarkZero](https://github.com/cerrtrash/MarkZero) 
+###### Proyectado y construido en MarkZero y fue hecho por [cerrtrash](https://bydaniel.site). MarkZero es una herramienta ligera para desarrolladores que aman markdown. Regalame una estrellita en github -> [MarkZero](https://github.com/cerrtrash/MarkZero) 
