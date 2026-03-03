@@ -84,4 +84,4 @@ Modifica variables, tipografías y sombras para que el sitio refleje tu identida
 
 ---
 
-##### Diseñado con pasión por [cerrtrash](https://bydaniel.site). Si te gusta MarkZero, apóyanos en [GitHub](https://github.com/cerrtrash/MarkZero).
+###### Proyectado y construido con pasión por [cerrtrash](https://bydaniel.site). Si te gusta MarkZero, apóyanos en [GitHub](https://github.com/cerrtrash/MarkZero).
