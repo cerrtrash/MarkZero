@@ -1,153 +1,87 @@
 ![logo de markzero](logo2.png)
 
+# MarkZero
+### El motor estático más ligero para tus documentos
 
-## Genera sitios web estáticos usando solo Markdown
-
-MarkZero es un entorno minimalista que convierte archivos `.md` en páginas HTML listas para producción.
-
-Escribe en Markdown.  
-Compila a HTML.  
-Publica en cualquier hosting.
+> **Escribe en Markdown.** Compila a HTML. Publica donde quieras.
 
 ---
 
 ## ¿Qué es MarkZero?
 
-MarkZero no es solo un conversor.
+MarkZero no es solo otro generador de sitios estáticos. Es un **micro-ecosistema** diseñado para minimalistas que valoran la velocidad y la simplicidad.
 
-Es un pequeño ecosistema diseñado para:
+- **Escritura Fluida**: Concéntrate en el contenido, no en las etiquetas HTML.
+- **Arquitectura Limpia**: Sin dependencias pesadas ni configuraciones complejas.
+- **Feedback Instantáneo**: Mira tus cambios reflejados al segundo con *Live Reload*.
 
-- Escribir contenido rápidamente
-- Generar sitios estáticos organizados
-- Mantener una estructura limpia
-- Visualizar cambios en tiempo real
-
-Ideal para documentación técnica, blogs personales o proyectos simples.
+Ideal para **documentación técnica**, bases de conocimientos personales o blogs minimalistas.
 
 ---
 
 ## Características Principales
 
-### Motor de Parseo Propio
+### Motor de Parseo Nativo
+Contamos con un motor desarrollado desde cero que interpreta la esencia de Markdown de forma eficiente:
+- Encabezados jerárquicos.
+- Listas inteligentes (anidadas y de tareas).
+- Tablas de datos elegantes.
+- Citas (Blockquotes) con estilo.
+- Bloques de código con utilidades integradas.
 
-Incluye un motor desarrollado desde cero que interpreta:
+### Portapapeles Inteligente
+Cada bloque de código viene con un **botón de copiado** integrado. Un detalle pequeño que marca la diferencia en la experiencia de usuario y la productividad.
 
-- Encabezados
-- Listas anidadas
-- Tablas
-- Citas
-- Bloques de código
-- Separadores
-
-No depende de frameworks pesados.
-
----
-
-### Botón de Copiado en Bloques de Código
-
-Todos los bloques de código incluyen un botón funcional que permite copiar el contenido directamente al portapapeles.
-
-Especialmente útil para documentación técnica.
-
----
-
-### Live Reload
-
-Modo desarrollo con recarga automática.
-
-Cada vez que guardas un archivo `.md`, el navegador se actualiza automáticamente sin necesidad de refrescar manualmente.
+### Live Reload (Modo Dev)
+Olvídate de apretar F5. Activa el modo desarrollo y observa cómo la página se actualiza sola cada vez que guardas tu archivo `.md`.
 
 ---
 
 ## Estructura del Proyecto
 
-# Estructura del proyecto
-```
-  MarkZero/
-├── main.py --> El archivo principal
-├── content/ ---> Carpeta donde deben ir tus archivos .md
-│   ├── index.md
-│   └── prueba.md
+```text
+MarkZero/
+├── main.py           # El cerebro: orquestador de la build y servidor
+├── content/          # Tu santuario: coloca aquí tus archivos .md
+│   ├── index.md      # Página de inicio
+│   └── docs.md       # Páginas adicionales
 ├── core/
-│   ├── parser.py --> Aqui se encuentran el motor para traducir a html
-│   └── templates.py --> Aqui se define la estructura del sitio (cabeceras, pie de pagina, etc)
+│   ├── parser.py     # El motor de traducción Markdown -> HTML
+│   └── templates.py  # Plantillas base (HEAD, FOOT, NAV)
 ├── public/
-│   ├── css/
-│   │   └── style.css --> Puedes modificar el estilo de las paginas a tu gusto
-│   └── icon.png 
-└── dist/ ---> Esta carpeta es tu build con los .md traducidos a html
-    ├── index.html 
-    ├── prueba.html
-    └── style.css
-
+│   ├── css/          # Directorio de estilos (docu.css)
+│   ├── js/           # Scripts del sitio (main.js)
+│   └── media/        # Tus imágenes y assets
+└── dist/             # El resultado: tu sitio web listo para producción
 ```
 
-## Modo Desarrollo
+---
 
+## Guía Rápida
+
+### 1. Iniciar Desarrollo
+Levanta el servidor con detección de cambios automática:
 ```bash
 python main.py --dev
 ```
 
-Si usas una versión específica:
+### 2. Estructura de Navegación
+MarkZero es inteligente. Solo crea un `.md` en `content/` y aparecerá mágicamente en el menú superior. El archivo `index.md` siempre será tu página de aterrizaje.
 
-```bash
-python3.11 main.py --dev
+### 3. Personalización Total
+¿Quieres cambiar el look? Todo el poder está en:
+```text
+public/css/docu.css
 ```
-
-Luego abre:
-
-```
-http://localhost:8000
-```
-
----
-
-## Sistema de Navegación Automático
-
-MarkZero detecta automáticamente los archivos dentro de `content/` y:
-
-1. Genera una página HTML por cada archivo `.md`.
-2. Construye el menú de navegación superior automáticamente.
-3. Trata `index.md` como la página principal.
-4. Actualiza el menú al agregar o renombrar archivos.
-
----
-
-## Personalización Visual
-
-Edita:
-
-```bash
-public/css/style.css
-```
-
-Puedes modificar:
-
-- Colores
-- Tipografía
-- Layout
-- Espaciado
-- Estilos de código
-
----
-
-## Flujo de Trabajo
-
-1. Crea o edita un archivo `.md` dentro de `content/`.
-2. Ejecuta el servidor en modo desarrollo.
-3. Guarda el archivo.
-4. Visualiza los cambios automáticamente.
-5. Sube la carpeta `dist/` a cualquier hosting estático.
+Modifica variables, tipografías y sombras para que el sitio refleje tu identidad.
 
 ---
 
 ## Filosofía
-
-- Simplicidad
-- Control
-- Rendimiento
-- Markdown como fuente única de verdad
+*   **Markdown Primero**: Tu contenido es el activo más importante.
+*   **Cero Fricción**: Del teclado a la web en segundos.
+*   **Rendimiento**: Cargas instantáneas, código limpio.
 
 ---
 
-###### Proyectado y construido por [cerrtrash](https://bydaniel.site). MarkZero es una herramienta ligera para desarrolladores que aman markdown. Regalame una estrellita en github -> [MarkZero](https://github.com/cerrtrash/MarkZero) 
+##### Diseñado con pasión por [cerrtrash](https://bydaniel.site). Si te gusta MarkZero, apóyanos en [GitHub](https://github.com/cerrtrash/MarkZero).

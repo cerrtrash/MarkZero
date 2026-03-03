@@ -2,32 +2,27 @@ ESTRUCTURA_HEAD = """<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarkZero</title>
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="docu.css"> 
     <link rel="icon" type="image/png" href="icon.png">
 </head>
 <body>
-    {{MENU}}
+    <nav class="nav-container">
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+        <div class="menu-items" id="menu-items">
+            {{MENU}}
+        </div>
+    </nav>
     <div class="contenedor">
 """
 
-
-
-
 ESTRUCTURA_FOOT = """
         </div>
+        <script src="main.js"></script>
     </body>
-    <script>
-        function copy(boton){
-            var code = boton.nextElementSibling.innerText;
-            var oldSVG = boton.innerHTML;
-            
-            navigator.clipboard.writeText(code).then(() => {
-                boton.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" stroke="#58a6ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-                setTimeout(() => { boton.innerHTML = oldSVG; }, 2000);
-            });        
-        }
-    </script>
 </html>
 """
 

@@ -25,7 +25,7 @@ def build(clean=True):
     os.makedirs(folder_output, exist_ok=True)
     print("Generando las paginas....")
     
-    menu_html = '<nav class="menu">'
+    menu_html = ''
     paginas = [f for f in os.listdir(folder_input) if f.endswith('.md')]
 
     for p in paginas:
@@ -33,7 +33,6 @@ def build(clean=True):
         display_name = "Inicio" if nombre.lower() == "index" else nombre
         enlace = p.replace('.md', '.html')
         menu_html += f'<a href="{enlace}">{display_name}</a>'
-    menu_html += '</nav>'
 
     content_menu = ESTRUCTURA_HEAD.replace('{{MENU}}', menu_html)
 
@@ -46,9 +45,13 @@ def build(clean=True):
             else:
                 shutil.copy2(s, d)
         
-        css_file = os.path.join(folder_output, 'css', 'style.css')
+        css_file = os.path.join(public_dir, 'css', 'docu.css')
         if os.path.exists(css_file):
-            shutil.copy2(css_file, os.path.join(folder_output, 'style.css'))
+            shutil.copy2(css_file, os.path.join(folder_output, 'docu.css'))
+            
+        js_file = os.path.join(public_dir, 'js', 'main.js')
+        if os.path.exists(js_file):
+            shutil.copy2(js_file, os.path.join(folder_output, 'main.js'))
 
     for filename in os.listdir(folder_input):
         if filename.endswith('.md'):
